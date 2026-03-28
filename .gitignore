@@ -17,5 +17,5 @@ cmake_install.cmake
 *.exe
 *.dll
 
-# Other
+# Other0
 .vscode/

@@ -18,6 +18,7 @@ target_sources(
 	PRIVATE
 		src/main.cpp
 		src/window.cpp
+		src/utils.cpp
 )
 
 target_include_directories(
