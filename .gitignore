@@ -1,0 +1,21 @@
+# CMake & Make
+/build/
+CMakeCache.txt
+CMakeFiles/
+Makefile.cmake
+cmake_install.cmake
+
+# vcpkg
+/vcpkg_installed/
+
+# Compiled Object files, Executables, and Libraries
+*.o
+*.out
+*.a
+*.so
+*.dylib
+*.exe
+*.dll
+
+# Other
+.vscode/
