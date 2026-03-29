@@ -47,5 +47,18 @@ unsigned int CreateShader(const std::string& vertexShader, const std::string& fr
     return prog;
 }
 
+std::string loadShaderFile(const std::string& filePath){
+
+    std::ifstream fileStream(filePath);
+    if(!fileStream.is_open()){
+        std::cout << "Failed to open shader located at: " << filePath << std::endl;
+        return "";
+    }
+
+    std::stringstream sBuffer;
+    sBuffer << fileStream.rdbuf();
+    return sBuffer.str();
+}
+
 
 }
