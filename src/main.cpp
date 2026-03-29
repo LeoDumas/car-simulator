@@ -9,11 +9,11 @@ struct Mesh{
 };
 
 Mesh setupTriangle(){
-	float positions[8] = {
-		-0.5f,  0.5f,
-		 0.5f,  0.5f,
-		 0.5f, -0.5f,
-		-0.5f, -0.5f,
+	float positions[12] = {
+		-0.5f,  0.5f, 0.5f,
+		 0.5f,  0.5f, 0.5f,
+		 0.5f, -0.5f, 0.5f,
+		-0.5f, -0.5f, 0.5f,
 	};
 
 
@@ -28,7 +28,7 @@ Mesh setupTriangle(){
 	glBufferData(GL_ARRAY_BUFFER, sizeof(positions), positions, GL_STATIC_DRAW);
 
 	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2*sizeof(float), 0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3*sizeof(float), (void*)0);
 
 	std::string vertexShader = Core::loadShaderFile("src/shaders/vertex.vs");
 	std::string fragmentShader = Core::loadShaderFile("src/shaders/fragment.fs");
@@ -48,16 +48,26 @@ int main(){
 		return 0;
 	}
 
+	glEnable(GL_DEPTH_TEST);
+
 	Mesh mesh = setupTriangle();
 	GLFWwindow* w = windowContext.getWindow();
 
+	float rotation = 0.0f;
+
 	while(!glfwWindowShouldClose(w)){
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		rotation += 0.009f;
+
+		glm::mat4 mvp = Core::camera(2.0f, glm::vec2(rotation, rotation));
 		
-		glClear(GL_COLOR_BUFFER_BIT);
-
 		glUseProgram(mesh.shader);
-		glBindVertexArray(mesh.vao);
 
+		int location = glGetUniformLocation(mesh.shader, "u_MVP");
+		glUniformMatrix4fv(location, 1, GL_FALSE, &mvp[0][0]);
+
+		glBindVertexArray(mesh.vao);
 		glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
 
 		glfwSwapBuffers(w);

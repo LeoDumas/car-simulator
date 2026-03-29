@@ -7,3 +7,6 @@ create-build:
 
 build-project:
 	cmake --build build
+
+run:
+	cmake --build build && ./build/car-sim

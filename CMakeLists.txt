@@ -11,6 +11,7 @@ add_executable(
 
 find_package(glad CONFIG REQUIRED)
 find_package(glfw3 CONFIG REQUIRED)
+find_package(glm CONFIG REQUIRED)
 find_package(OpenGL REQUIRED)
 
 target_sources(
@@ -32,5 +33,6 @@ target_link_libraries(
 	PRIVATE
 		glad::glad
 		glfw
+		glm
 		OpenGL::GL	
 )
